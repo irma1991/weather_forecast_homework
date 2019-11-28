@@ -1,0 +1,19 @@
+.main{
+    background: url("../images/bg-clouds.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 800px;
+}
+
+.header{
+    background-color: #008ae6;
+    height: 80px;
+}
+
+.city{
+    background-color: #66c2ff;
+}
+
+.day-of-weeks{
+    padding-top: 30px;
+}
