@@ -79,20 +79,33 @@ const fetchWeather = async () => {
 const showWeather = async () => {
 // getting the weather data from api
     await fetchWeather();
-    let weatherItems = weather.forecastTimestamps; //duomenys
+    // filtruojam duomenys tik konkrecios dienos
+    let weatherItems = weather.forecastTimestamps;
     weatherItems = weatherItems.filter(today)
-    let weatherData = [];
-    for(weatherItem in weatherItems){
-        weatherData [weatherItem] = weatherItems[weatherItem];
-//console.log(weatherItems[weatherItem])
-    }
-    for(weatherItem of weatherData){
-        //console.log(weatherItem)
-        for(ItemValue in weatherItem){
-            const div = document.createElement('div');
-            div.classList.add("row", "every-hour-forecast");
-            div.textContent = ItemValue + ':' + weatherItem[ItemValue];
-            document.querySelector('.every-hour-forecast').appendChild(div);
+
+//     let weatherData = [];
+//     for(weatherItem in weatherItems){
+//         weatherData [weatherItem] = weatherItems[weatherItem];
+//         console.log(weatherItems[weatherItem])
+//     }
+
+    for(let i=0; i < weatherItems.length; i++){
+        const weatherByHours = document.createElement('div');
+        weatherByHours.classList.add("col-sm", "border", "every-hour-forecast");
+        document.querySelector('.weather-by-hours').appendChild(weatherByHours);
+
+        for(weatherItem in weatherItems[i]){
+            let hours = document.createElement('div');
+            hours.classList.add("hours");
+            hours.textContent = weatherItems[i]['airTemperature'];
+            weatherByHours.appendChild(hours);
+            console.log(weatherItems[i])
+
+            let weatherIcon = document.createElement('div');
+            weatherIcon.classList.add("weather-icon");
+            weatherIcon.textContent = weatherItems[i]['windSpeed'];
+            weatherByHours.appendChild(weatherIcon);
+
         }
     }
 }
