@@ -1,39 +1,93 @@
-// async function getData(){
+// async function start(){
 //     let url = 'https://api.meteo.lt/v1/places/kaunas/forecasts/long-term';
 //     let response = await fetch(url);
 //
 //     let orai = await response.json();
 //
-//     // console.log(orai);
-//     console.log(orai['forecastTimestamps'])
+//     console.log(orai);
+//     // console.log(orai['forecastTimestamps'])
 // }
 //
-// // start()
-// getData()
+// start()
+//
+// // async function getData(api){
+// //     let url = api;
+// //     let response = await fetch(url);
+// //     return await response.json();
+// // }
+// //
+// // async function showData(){
+// //     const data = await getData('https://api.meteo.lt/v1/places/kaunas/forecasts/long-term');
+// //
+// //     console.log(data)
+// // }
+// //
+// // showData()
+// //
 
-// async function getData(api){
-//     let url = api;
-//     let response = await fetch(url);
-//     return await response.json();
-// }
-//
-// async function showData(){
-//     const data = await getData('https://api.meteo.lt/v1/places/kaunas/forecasts/long-term');
-//
-//     console.log(data)
-// }
-//
-// showData()
+let weather;
+const fetchWeather = async () => {
+    weather = await fetch(
+        'https://api.meteo.lt/v1/places/kaunas/forecasts/long-term'
+    ).then(res => res.json());
+};
+const showWeather = async () => {
+// getting the weather data from api
+    await fetchWeather();
+    const weatherItems = weather.forecastTimestamps;
+    let weatherData = [];
+    console.log(weather.forecastTimestamps[0].forecastTimeUtc)
+    for(let i=0; i<24; i++) {
+        weatherData[i] = weather.forecastTimestamps[i];
+        console.log(weatherData[i])
+        const weatherItems = document.querySelector('.every-hour-weather');
+        const hours = document.querySelector('.hours');
+        hours.textContent = weather.forecastTimestamps[0].forecastTimeUtc;
+        document.querySelector('.every-hour-weather').appendChild(hours);
+        const temperature = document.querySelector('.temperature');
+        temperature.textContent = weather.forecastTimestamps[0].airTemperature;
+        document.querySelector('.every-hour-weather').appendChild(temperature);
+        const wind = document.querySelector('.wind');
+        wind.textContent = weather.forecastTimestamps[0].windSpeed;
+        document.querySelector('.every-hour-weather').appendChild(wind);
 
-async function getData(city){
-    let url = 'https://api.meteo.lt/v1/places/'+city+'/forecasts/long-term';
-    let response = await fetch(url);
-    return await response.json();
+        const weatherItems2 = document.querySelector('.every-hour-weather2');
+        const hours2 = document.querySelector('.hours');
+        hours2.textContent = weather.forecastTimestamps[1].forecastTimeUtc;
+        document.querySelector('.every-hour-weather2').appendChild(hours2);
+        const temperature2 = document.querySelector('.temperature');
+        temperature2.textContent = weather.forecastTimestamps[1].airTemperature;
+        document.querySelector('.every-hour-weather2').appendChild(temperature2);
+        const wind2 = document.querySelector('.wind');
+        wind2.textContent = weather.forecastTimestamps[1].windSpeed;
+        document.querySelector('.every-hour-weather2').appendChild(wind2);
+
+
+    }
 }
+showWeather()
 
-async function showData(){
-    const data = await getData('Kaunas');
-    console.log(data)
-}
-
-showData()
+// const fetchWeather = async () => {
+//     weather = await fetch(
+//         'https://api.meteo.lt/v1/places/kaunas/forecasts/long-term'
+//     ).then(res => res.json());
+// };
+// const showWeather = async () => {
+// // getting the weather data from api
+//     await fetchWeather();
+//     const weatherItems = weather.forecastTimestamps;
+//     const weatherUiItems = document.querySelector('.every-hour-weather');
+//     let weatherData = [];
+//     for(weatherItem in weatherItems){
+//         weatherData [weatherItem] = weatherItems[weatherItem];
+// //console.log(weatherItems[weatherItem].forecastTimeUtc)
+//     }
+//     for(weatherItem of weatherData){
+//         for(ItemValue in weatherItem){
+//             const li = document.createElement('li');
+//             li.textContent = ItemValue+':'+weatherItem[ItemValue];
+//             document.querySelector('.every-hour-weather').appendChild(li);
+//         }
+//     }
+// }
+// showWeather()
