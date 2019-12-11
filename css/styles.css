@@ -17,3 +17,7 @@
 .day-of-weeks{
     padding-top: 30px;
 }
+
+.container{
+    overflow-x: scroll;
+}

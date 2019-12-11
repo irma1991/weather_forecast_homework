@@ -69,8 +69,10 @@ const showWeather = async () => {
         document.querySelector('.weather-by-hours').appendChild(weatherByHours);
 
         let hours = document.createElement('div');
+        var str = weatherItems[i]['forecastTimeUtc'];
+        var res = str.slice(-8, -3);
         hours.classList.add("hours");
-        hours.textContent = "Laikas: "+weatherItems[i]['forecastTimeUtc'];
+        hours.textContent = res;
         weatherByHours.appendChild(hours);
         console.log(weatherItems[i])
 
@@ -81,7 +83,7 @@ const showWeather = async () => {
 
         let temperature = document.createElement('div');
         temperature.classList.add("temperature");
-        temperature.textContent = "Temperatura: "+weatherItems[i]['airTemperature']+" °";
+        temperature.textContent = weatherItems[i]['airTemperature']+" °";
         weatherByHours.appendChild(temperature);
 
         let humidityIcon = document.createElement('div');
@@ -91,12 +93,12 @@ const showWeather = async () => {
 
         let humidityValue = document.createElement('div');
         humidityValue.classList.add("humidity-value");
-        humidityValue.textContent = "Dregnumas: "+weatherItems[i]['totalPrecipitation']+" %";
+        humidityValue.textContent = weatherItems[i]['totalPrecipitation']+" %";
         weatherByHours.appendChild(humidityValue);
 
         let wind = document.createElement('div');
         wind.classList.add("wind");
-        wind.textContent = "Vejo greitis: "+weatherItems[i]['windSpeed'];
+        wind.textContent = weatherItems[i]['windSpeed']+"m/s";
         weatherByHours.appendChild(wind);
     }
 }
