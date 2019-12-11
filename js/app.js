@@ -1,112 +1,103 @@
-// async function start(){
-//     let url = 'https://api.meteo.lt/v1/places/kaunas/forecasts/long-term';
-//     let response = await fetch(url);
-//
-//     let orai = await response.json();
-//
-//     console.log(orai);
-//     // console.log(orai['forecastTimestamps'])
-// }
-//
-// start()
-//
-// // async function getData(api){
-// //     let url = api;
-// //     let response = await fetch(url);
-// //     return await response.json();
-// // }
-// //
-// // async function showData(){
-// //     const data = await getData('https://api.meteo.lt/v1/places/kaunas/forecasts/long-term');
-// //
-// //     console.log(data)
-// // }
-// //
-// // showData()
-// //
-
-// let weather;
-// const fetchWeather = async () => {
-//     weather = await fetch(
-//         'https://api.meteo.lt/v1/places/kaunas/forecasts/long-term'
-//     ).then(res => res.json());
-// };
-// const showWeather = async () => {
-// // getting the weather data from api
-//     await fetchWeather();
-//     const weatherItems = weather.forecastTimestamps;
-//     let weatherData = [];
-//     console.log(weather.forecastTimestamps[0].forecastTimeUtc)
-//     for(let i=0; i<24; i++) {
-//         weatherData[i] = weather.forecastTimestamps[i];
-//         console.log(weatherData[i])
-//         const weatherItems = document.querySelector('.every-hour-weather');
-//         const hours = document.querySelector('.hours');
-//         hours.textContent = weather.forecastTimestamps[0].forecastTimeUtc;
-//         document.querySelector('.every-hour-weather').appendChild(hours);
-//         const temperature = document.querySelector('.temperature');
-//         temperature.textContent = weather.forecastTimestamps[0].airTemperature;
-//         document.querySelector('.every-hour-weather').appendChild(temperature);
-//         const wind = document.querySelector('.wind');
-//         wind.textContent = weather.forecastTimestamps[0].windSpeed;
-//         document.querySelector('.every-hour-weather').appendChild(wind);
-//
-//         const weatherItems2 = document.querySelector('.every-hour-weather2');
-//         const hours2 = document.querySelector('.hours');
-//         hours2.textContent = weather.forecastTimestamps[1].forecastTimeUtc;
-//         document.querySelector('.every-hour-weather2').appendChild(hours2);
-//         const temperature2 = document.querySelector('.temperature');
-//         temperature2.textContent = weather.forecastTimestamps[1].airTemperature;
-//         document.querySelector('.every-hour-weather2').appendChild(temperature2);
-//         const wind2 = document.querySelector('.wind');
-//         wind2.textContent = weather.forecastTimestamps[1].windSpeed;
-//         document.querySelector('.every-hour-weather2').appendChild(wind2);
-//
-//
-//     }
-// }
-// showWeather()
-
 function today(value){
-    return  value.forecastTimeUtc.includes('2019-12-10');
+    return  value.forecastTimeUtc.includes('2019-12-12');
 }
 
 const fetchWeather = async () => {
-    weather = await fetch(
+   weather = await fetch(
         'https://api.meteo.lt/v1/places/kaunas/forecasts/long-term'
     ).then(res => res.json());
 };
 const showWeather = async () => {
 // getting the weather data from api
     await fetchWeather();
+
     // filtruojam duomenys tik konkrecios dienos
     let weatherItems = weather.forecastTimestamps;
     weatherItems = weatherItems.filter(today)
 
-//     let weatherData = [];
-//     for(weatherItem in weatherItems){
-//         weatherData [weatherItem] = weatherItems[weatherItem];
-//         console.log(weatherItems[weatherItem])
-//     }
+    //susikuriu icons kieknievam galimam conditionCode
+    let weatherIcons = {
+        clear: '<i class="fas fa-sun"></i>',
+        isolatedClouds: '<i class="fas fa-cloud"></i>',
+        scatteredClouds: '<i class="fas fa-cloud-sun"></i>',
+        overcast: '<i class="fas fa-cloud"></i>',
+        lightRain: '<i class="fas fa-cloud-rain"></i>',
+        moderateRain: '<i class="fas fa-cloud-rain"></i>',
+        heavyRain: '<i class="fas fa-cloud-showers-heavy"></i>',
+        sleet: '<i class="fas fa-cloud-meatball"></i>',
+        lightSnow: '<i class="fas fa-snowflake"></i>',
+        moderateSnow: '<i class="fas fa-snowflake"></i>',
+        heavySnow: '<i class="fas fa-snowflake"></i>',
+        fog: '<i class="fas fa-smog"></i>',
+        humidityIcon: '<i class="fas fa-tint"></i>'
+    };
+
+    async function getWeatherIcon(conditionCode){
+        switch (conditionCode) {
+            case ("clear"):
+                return weatherIcons.clear;
+            case ("isolated-clouds"):
+                return weatherIcons.isolatedClouds;
+            case ("scattered-clouds"):
+                return weatherIcons.scatteredClouds;
+            case ("overcast"):
+                return weatherIcons.overcast;
+            case ("light-rain"):
+                return weatherIcons.lightRain;
+            case ("moderate-rain"):
+                return weatherIcons.moderateRain;
+            case ("heavy-rain"):
+                return weatherIcons.heavyRain;
+            case ("sleet"):
+                return weatherIcons.sleet;
+            case ("light-snow"):
+                return weatherIcons.lightSnow;
+            case ("moderate-snow"):
+                return weatherIcons.moderateSnow;
+            case ("heavy-snow"):
+                return weatherIcons.heavySnow;
+            case ("fog"):
+                return weatherIcons.fog;
+        }
+    }
+
 
     for(let i=0; i < weatherItems.length; i++){
+
         const weatherByHours = document.createElement('div');
         weatherByHours.classList.add("col-sm", "border", "every-hour-forecast");
         document.querySelector('.weather-by-hours').appendChild(weatherByHours);
 
-        for(weatherItem in weatherItems[i]){
-            let hours = document.createElement('div');
-            hours.classList.add("hours");
-            hours.textContent = weatherItems[i]['airTemperature'];
-            weatherByHours.appendChild(hours);
-            console.log(weatherItems[i])
+        let hours = document.createElement('div');
+        hours.classList.add("hours");
+        hours.textContent = "Laikas: "+weatherItems[i]['forecastTimeUtc'];
+        weatherByHours.appendChild(hours);
+        console.log(weatherItems[i])
 
-            let weatherIcon = document.createElement('div');
-            weatherIcon.classList.add("weather-icon");
-            weatherIcon.textContent = weatherItems[i]['windSpeed'];
-            weatherByHours.appendChild(weatherIcon);
+        let weatherIcon = document.createElement('div');
+        weatherIcon.classList.add("weather-icon");
+        weatherIcon.innerHTML = await getWeatherIcon(weatherItems[i]['conditionCode']);
+        weatherByHours.appendChild(weatherIcon);
 
-        }
+        let temperature = document.createElement('div');
+        temperature.classList.add("temperature");
+        temperature.textContent = "Temperatura: "+weatherItems[i]['airTemperature']+" °";
+        weatherByHours.appendChild(temperature);
+
+        let humidityIcon = document.createElement('div');
+        humidityIcon.classList.add("humidity-icon");
+        humidityIcon.innerHTML = weatherIcons.humidityIcon;
+        weatherByHours.appendChild(humidityIcon);
+
+        let humidityValue = document.createElement('div');
+        humidityValue.classList.add("humidity-value");
+        humidityValue.textContent = "Dregnumas: "+weatherItems[i]['totalPrecipitation']+" %";
+        weatherByHours.appendChild(humidityValue);
+
+        let wind = document.createElement('div');
+        wind.classList.add("wind");
+        wind.textContent = "Vejo greitis: "+weatherItems[i]['windSpeed'];
+        weatherByHours.appendChild(wind);
     }
 }
 showWeather()

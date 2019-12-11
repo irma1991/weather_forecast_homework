@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="2a9d3e25-8fe0-4be3-a7ae-2ea5bbdde674" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/app.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -18,12 +17,6 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-  </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-8" />
-    <option name="y" value="-8" />
-    <option name="width" value="1079" />
-    <option name="height" value="1047" />
   </component>
   <component name="ProjectId" id="1Uf196Prrsibp6Tc5PgltxTrVkN" />
   <component name="ProjectViewState">
@@ -70,7 +63,8 @@
       <workItem from="1575974523602" duration="10034000" />
       <workItem from="1576006713979" duration="52000" />
       <workItem from="1576006807432" duration="21000" />
-      <workItem from="1576006849695" duration="1827000" />
+      <workItem from="1576006849695" duration="2570000" />
+      <workItem from="1576087239525" duration="7816000" />
     </task>
     <servers />
   </component>
@@ -82,9 +76,9 @@
       <screen x="0" y="0" width="3440" height="1410" />
     </state>
     <state x="640" y="466" key="FileChooserDialogImpl/0.0.3440.1410@0.0.3440.1410" timestamp="1576006725300" />
-    <state x="575" y="532" key="com.intellij.ide.util.TipDialog" timestamp="1576006808952">
+    <state x="575" y="532" key="com.intellij.ide.util.TipDialog" timestamp="1576087243572">
       <screen x="0" y="0" width="3440" height="1410" />
     </state>
-    <state x="575" y="532" key="com.intellij.ide.util.TipDialog/0.0.3440.1410@0.0.3440.1410" timestamp="1576006808952" />
+    <state x="575" y="532" key="com.intellij.ide.util.TipDialog/0.0.3440.1410@0.0.3440.1410" timestamp="1576087243572" />
   </component>
 </project>
