@@ -18,6 +18,14 @@
     padding-top: 30px;
 }
 
-.container{
+.weather-by-days{
     overflow-x: scroll;
+}
+
+.weather-by-hours{
+    overflow-x: scroll;
+}
+
+.row{
+    flex-wrap: nowrap;
 }

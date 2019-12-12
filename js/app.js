@@ -1,6 +1,6 @@
-function today(value){
-    return  value.forecastTimeUtc.includes('2019-12-12');
-}
+// function today(value){
+//     return  value.forecastTimeUtc.includes('2019-12-13');
+// }
 
 const fetchWeather = async () => {
    weather = await fetch(
@@ -12,6 +12,16 @@ const showWeather = async () => {
     await fetchWeather();
 
     // filtruojam duomenys tik konkrecios dienos
+
+    function today(value){
+        var currentDate = new Date();
+        var day = currentDate.getDate();
+        var month = currentDate.getMonth() + 1;
+        var year = currentDate.getFullYear();
+        var formated = year+"-"+month+"-"+day;
+        return value.forecastTimeUtc.includes(formated);
+    }
+
     let weatherItems = weather.forecastTimestamps;
     weatherItems = weatherItems.filter(today)
 
@@ -62,10 +72,29 @@ const showWeather = async () => {
     }
 
 
+    for(let i=0; i < 7; i++){
+
+        const weatherByDays = document.createElement('div');
+        weatherByDays.classList.add("col-sm", "border");
+        document.querySelector('.weather-by-days').appendChild(weatherByDays);
+
+        let particularDay = document.createElement('div');
+        var str = weatherItems[i]['forecastTimeUtc'];
+        var res = str.slice(0, 10);
+        particularDay.classList.add("particular-day");
+        particularDay.textContent = res;
+        weatherByDays.appendChild(particularDay);
+
+        let weatherIconDay = document.createElement('div');
+        weatherIconDay.classList.add("weather-icon-day");
+        weatherIconDay.innerHTML = await getWeatherIcon(weatherItems[i]['conditionCode']);
+        weatherByDays.appendChild(weatherIconDay);
+    }
+
     for(let i=0; i < weatherItems.length; i++){
 
         const weatherByHours = document.createElement('div');
-        weatherByHours.classList.add("col-sm", "border", "every-hour-forecast");
+        weatherByHours.classList.add("col-sm", "border");
         document.querySelector('.weather-by-hours').appendChild(weatherByHours);
 
         let hours = document.createElement('div');
@@ -74,7 +103,6 @@ const showWeather = async () => {
         hours.classList.add("hours");
         hours.textContent = res;
         weatherByHours.appendChild(hours);
-        console.log(weatherItems[i])
 
         let weatherIcon = document.createElement('div');
         weatherIcon.classList.add("weather-icon");
@@ -93,7 +121,7 @@ const showWeather = async () => {
 
         let humidityValue = document.createElement('div');
         humidityValue.classList.add("humidity-value");
-        humidityValue.textContent = weatherItems[i]['totalPrecipitation']+" %";
+        humidityValue.textContent = weatherItems[i]['totalPrecipitation']+"%";
         weatherByHours.appendChild(humidityValue);
 
         let wind = document.createElement('div');
