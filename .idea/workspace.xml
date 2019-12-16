@@ -69,7 +69,9 @@
       <workItem from="1576145372298" duration="13726000" />
       <workItem from="1576414386403" duration="11000" />
       <workItem from="1576414408851" duration="283000" />
-      <workItem from="1576419298573" duration="18542000" />
+      <workItem from="1576419298573" duration="19117000" />
+      <workItem from="1576483995907" duration="1105000" />
+      <workItem from="1576514485853" duration="12228000" />
     </task>
     <servers />
   </component>
@@ -81,9 +83,9 @@
       <screen x="0" y="0" width="3440" height="1410" />
     </state>
     <state x="640" y="466" key="FileChooserDialogImpl/0.0.3440.1410@0.0.3440.1410" timestamp="1576006725300" />
-    <state x="575" y="532" key="com.intellij.ide.util.TipDialog" timestamp="1576419298686">
+    <state x="575" y="532" key="com.intellij.ide.util.TipDialog" timestamp="1576514490766">
       <screen x="0" y="0" width="3440" height="1410" />
     </state>
-    <state x="575" y="532" key="com.intellij.ide.util.TipDialog/0.0.3440.1410@0.0.3440.1410" timestamp="1576419298686" />
+    <state x="575" y="532" key="com.intellij.ide.util.TipDialog/0.0.3440.1410@0.0.3440.1410" timestamp="1576514490766" />
   </component>
 </project>

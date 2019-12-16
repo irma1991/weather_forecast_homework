@@ -1,25 +1,13 @@
-const fetchWeather = async () => {
-    weather = await fetch(
-        'https://api.meteo.lt/v1/places/kaunas/forecasts/long-term'
-    ).then(res => res.json());
-};
-
-
-// filtruojam duomenys tik konkrecios dienos
-
-function today(value) {
-    var currentDate = new Date();
-    var day = currentDate.getDate();
-    var month = currentDate.getMonth() + 1;
-    var year = currentDate.getFullYear();
-    var formedDate = year + "-" + month + "-" + day;
-    console.log(formedDate)
-    return value.forecastTimeUtc.includes(formedDate);
+async function getData(city) {
+    let url = 'https://api.meteo.lt/v1/places/' + city + '/forecasts/long-term';
+    let response = await fetch(url);
+    return await response.json();
 }
 
-const showWeather = async () => {
-// getting the weather data from api
-    await fetchWeather();
+async function showWeather() {
+    const weather = await getData('Kaunas');
+    let weatherItems = weather.forecastTimestamps;
+
 
     //susikuriu icons kiekvienam galimam conditionCode
     let weatherIcons = {
@@ -67,53 +55,80 @@ const showWeather = async () => {
         }
     }
 
-    let weatherItems = weather.forecastTimestamps;
+    for (let i = 0; i < 7; i++){
+
+        const maxtemp = Math.max(...weatherItems.map(o => o.airTemperature));
+        console.log(maxtemp)
+        //isrenka maziausia temp
+        const mintemp = Math.min(...weatherItems.map(o => o.airTemperature));
+        console.log(mintemp)
+
+        const weatherByDays = document.createElement('div');
+        weatherByDays.classList.add("col-sm", "border");
+        document.querySelector('.weather-by-days').appendChild(weatherByDays);
+
+        let MinTemperatureDay = document.createElement('div');
+        MinTemperatureDay.classList.add("min-temperature-day");
+        MinTemperatureDay.textContent = "Min " + mintemp + "°";
+        weatherByDays.appendChild(MinTemperatureDay);
+
+        let MaxTemperatureDay = document.createElement('div');
+        MaxTemperatureDay.classList.add("max-temperature-day");
+        MaxTemperatureDay.textContent = "Max " + maxtemp + "°";
+        weatherByDays.appendChild(MaxTemperatureDay);
+    }
+
+// filtruojam duomenys tik konkrecios dienos
+
+    function today(value) {
+        let currentDate = new Date();
+        let day = currentDate.getDate();
+        let month = currentDate.getMonth() + 1;
+        let year = currentDate.getFullYear();
+        let formedDate = year + "-" + month + "-" + day;
+        return value.forecastTimeUtc.includes(formedDate);
+    }
+
     weatherItems = weatherItems.filter(today)
 
-    const maxtemp = Math.max(...weatherItems.map(o => o.airTemperature));
-    console.log(maxtemp)
+    for (let i = 0; i < weatherItems.length; i++) {
 
-    const mintemp = Math.min(...weatherItems.map(o => o.airTemperature));
-    console.log(mintemp)
+        const weatherByHours = document.createElement('div');
+        weatherByHours.classList.add("col-sm", "border");
+        document.querySelector('.weather-by-hours').appendChild(weatherByHours);
 
-        for (let i = 0; i < weatherItems.length; i++) {
+        let hours = document.createElement('div');
+        var str = weatherItems[i]['forecastTimeUtc'];
+        var res = str.slice(-8, -3);
+        hours.classList.add("hours");
+        hours.textContent = res;
+        weatherByHours.appendChild(hours);
 
-            const weatherByHours = document.createElement('div');
-            weatherByHours.classList.add("col-sm", "border");
-            document.querySelector('.weather-by-hours').appendChild(weatherByHours);
+        let weatherIcon = document.createElement('div');
+        weatherIcon.classList.add("weather-icon");
+        weatherIcon.innerHTML = await getWeatherIcon(weatherItems[i]['conditionCode']);
+        weatherByHours.appendChild(weatherIcon);
 
-            let hours = document.createElement('div');
-            var str = weatherItems[i]['forecastTimeUtc'];
-            var res = str.slice(-8, -3);
-            hours.classList.add("hours");
-            hours.textContent = res;
-            weatherByHours.appendChild(hours);
+        let temperature = document.createElement('div');
+        temperature.classList.add("temperature");
+        temperature.textContent = weatherItems[i]['airTemperature'] + " °";
+        weatherByHours.appendChild(temperature);
 
-            let weatherIcon = document.createElement('div');
-            weatherIcon.classList.add("weather-icon");
-            weatherIcon.innerHTML = await getWeatherIcon(weatherItems[i]['conditionCode']);
-            weatherByHours.appendChild(weatherIcon);
+        let humidityIcon = document.createElement('div');
+        humidityIcon.classList.add("humidity-icon");
+        humidityIcon.innerHTML = weatherIcons.humidityIcon;
+        weatherByHours.appendChild(humidityIcon);
 
-            let temperature = document.createElement('div');
-            temperature.classList.add("temperature");
-            temperature.textContent = weatherItems[i]['airTemperature'] + " °";
-            weatherByHours.appendChild(temperature);
+        let humidityValue = document.createElement('div');
+        humidityValue.classList.add("humidity-value");
+        humidityValue.textContent = weatherItems[i]['totalPrecipitation'] + "%";
+        weatherByHours.appendChild(humidityValue);
 
-            let humidityIcon = document.createElement('div');
-            humidityIcon.classList.add("humidity-icon");
-            humidityIcon.innerHTML = weatherIcons.humidityIcon;
-            weatherByHours.appendChild(humidityIcon);
-
-            let humidityValue = document.createElement('div');
-            humidityValue.classList.add("humidity-value");
-            humidityValue.textContent = weatherItems[i]['totalPrecipitation'] + "%";
-            weatherByHours.appendChild(humidityValue);
-
-            let wind = document.createElement('div');
-            wind.classList.add("wind");
-            wind.textContent = weatherItems[i]['windSpeed'] + "m/s";
-            weatherByHours.appendChild(wind);
-        }
+        let wind = document.createElement('div');
+        wind.classList.add("wind");
+        wind.textContent = weatherItems[i]['windSpeed'] + "m/s";
+        weatherByHours.appendChild(wind);
     }
+}
 
 showWeather()
