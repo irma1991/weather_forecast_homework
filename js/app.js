@@ -1,15 +1,27 @@
-async function getData(city) {
-    let url = 'https://api.meteo.lt/v1/places/' + city + '/forecasts/long-term';
-    let response = await fetch(url);
-    return await response.json();
-}
+let place = document.querySelector('input'); // paieskos inputas
+let city;
+city = place.addEventListener('input',  e => {
+    const fetchWeather = async (callback) => {
+        weather = await fetch(
+            'https://api.meteo.lt/v1/places/'+e.target.value+'/forecasts/long-term'
+        ).then(res => res.json());
+    };
 
+// // fetchinam API
+// async function getData(city) {
+//     let url = 'https://api.meteo.lt/v1/places/' + city + '/forecasts/long-term';
+//     let response = await fetch(url);
+//     return await response.json();
+// }
+
+// pasiemam duomenis is API
 async function showWeather() {
-    const weather = await getData('Kaunas');
+    await fetchWeather(city);
+    // const weather = await getData('Kaunas');
     let weatherItems = weather.forecastTimestamps;
 
 
-    //susikuriu icons kiekvienam galimam conditionCode
+    // susikuriu icons kiekvienam galimam conditionCode
     let weatherIcons = {
         clear: '<i class="fas fa-sun"></i>',
         isolatedClouds: '<i class="fas fa-cloud"></i>',
@@ -26,6 +38,8 @@ async function showWeather() {
         humidityIcon: '<i class="fas fa-tint"></i>'
     };
 
+
+    // su switch padarom, kad rodytu icons pagal esama conditionCode
     async function getWeatherIcon(conditionCode) {
         switch (conditionCode) {
             case ("clear"):
@@ -55,17 +69,36 @@ async function showWeather() {
         }
     }
 
-    for (let i = 0; i < 7; i++){
 
-        const maxtemp = Math.max(...weatherItems.map(o => o.airTemperature));
-        console.log(maxtemp)
-        //isrenka maziausia temp
-        const mintemp = Math.min(...weatherItems.map(o => o.airTemperature));
+    // filtruojam duomenis sios dienos + 6 dienu i prieki
+    for (i=0; i < 7; i++) {
+        let weatherByDay = weatherItems.filter(function (value) {
+            let currentDate = new Date();
+            let day = currentDate.getDate() + i;
+            let month = currentDate.getMonth() + 1;
+            let year = currentDate.getFullYear();
+            let formedDate = year + "-" + month + "-" + day;
+            console.log(formedDate)
+            return value.forecastTimeUtc.includes(formedDate);
+        });
+
+        // MIN temperatura kiekvienai dienai
+        const mintemp = Math.min(...weatherByDay.map(o => o.airTemperature));
         console.log(mintemp)
 
+        // MAX temperatura kiekvienai dienai
+        const maxtemp = Math.max(...weatherByDay.map(o => o.airTemperature));
+        console.log(maxtemp)
+
+        // kuriame vietas gautiems duomenims
         const weatherByDays = document.createElement('div');
         weatherByDays.classList.add("col-sm", "border");
         document.querySelector('.weather-by-days').appendChild(weatherByDays);
+
+        let weatherIcon = document.createElement('div');
+        weatherIcon.classList.add("weather-icon");
+        weatherIcon.innerHTML = await getWeatherIcon(weatherItems[i]['conditionCode']);
+        weatherByDays.appendChild(weatherIcon);
 
         let MinTemperatureDay = document.createElement('div');
         MinTemperatureDay.classList.add("min-temperature-day");
@@ -78,8 +111,8 @@ async function showWeather() {
         weatherByDays.appendChild(MaxTemperatureDay);
     }
 
-// filtruojam duomenys tik konkrecios dienos
 
+    // filtruojam duomenys tik dabartines dienos
     function today(value) {
         let currentDate = new Date();
         let day = currentDate.getDate();
@@ -91,6 +124,7 @@ async function showWeather() {
 
     weatherItems = weatherItems.filter(today)
 
+    // kuriame vietas gautiems duomenims
     for (let i = 0; i < weatherItems.length; i++) {
 
         const weatherByHours = document.createElement('div');
@@ -132,3 +166,4 @@ async function showWeather() {
 }
 
 showWeather()
+});

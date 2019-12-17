@@ -18,9 +18,9 @@
     padding-top: 30px;
 }
 
-.weather-by-days{
-    overflow-x: scroll;
-}
+/*.weather-by-days{*/
+/*    overflow-x: scroll;*/
+/*}*/
 
 .weather-by-hours{
     overflow-x: scroll;
@@ -28,4 +28,8 @@
 
 .row{
     flex-wrap: nowrap;
+}
+
+form{
+    padding-top: 10px;
 }
