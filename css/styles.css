@@ -14,15 +14,7 @@
     background-color: #66c2ff;
 }
 
-.day-of-weeks{
-    padding-top: 30px;
-}
-
-/*.weather-by-days{*/
-/*    overflow-x: scroll;*/
-/*}*/
-
-.weather-by-hours{
+.weather-by-days, .weather-by-hours{
     overflow-x: scroll;
 }
 
@@ -32,4 +24,18 @@
 
 form{
     padding-top: 10px;
+}
+
+.days{
+    padding-top: 60px;
+}
+
+.weather-by-days .col-sm{
+    height: 100px;
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+.weather-by-hours .col-sm{
+    height: 350px;
+    background-color: rgba(255, 255, 255, 0.5);
 }

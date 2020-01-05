@@ -6,7 +6,6 @@
       <change beforePath="$PROJECT_DIR$/css/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/styles.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/js/app2.js" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -75,6 +74,11 @@
       <workItem from="1576483995907" duration="1105000" />
       <workItem from="1576514485853" duration="12526000" />
       <workItem from="1576565348506" duration="4483000" />
+      <workItem from="1577642016326" duration="9000" />
+      <workItem from="1577642038726" duration="1220000" />
+      <workItem from="1577996355695" duration="2098000" />
+      <workItem from="1578160957751" duration="3004000" />
+      <workItem from="1578243932222" duration="3738000" />
     </task>
     <servers />
   </component>
@@ -86,9 +90,9 @@
       <screen x="0" y="0" width="3440" height="1410" />
     </state>
     <state x="640" y="466" key="FileChooserDialogImpl/0.0.3440.1410@0.0.3440.1410" timestamp="1576006725300" />
-    <state x="575" y="532" key="com.intellij.ide.util.TipDialog" timestamp="1576565349434">
+    <state x="575" y="532" key="com.intellij.ide.util.TipDialog" timestamp="1578243952876">
       <screen x="0" y="0" width="3440" height="1410" />
     </state>
-    <state x="575" y="532" key="com.intellij.ide.util.TipDialog/0.0.3440.1410@0.0.3440.1410" timestamp="1576565349434" />
+    <state x="575" y="532" key="com.intellij.ide.util.TipDialog/0.0.3440.1410@0.0.3440.1410" timestamp="1578243952876" />
   </component>
 </project>
